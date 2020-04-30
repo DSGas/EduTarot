@@ -79,6 +79,7 @@ passport.deserializeUser(User.deserializeUser());
 // ];
 app.get('/',function(req,res){
     res.render('landing');
+    console.log('Welcome to the club');
 });
 
 app.get("/tarot",isLoggedIn, function(req,res){
