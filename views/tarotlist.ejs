@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+<div class = "container">
+    <div class = "jumbotron" style="text-align: center;">
+        <h2>Tarot List</h2>
+        <p>This page shows all the EduTarot collection!</p>
+        <a class="btn btn-outline-primary" href="/tarot/new" role="button">Add new card!</a>
+    </div>
+
+    <div class = "row" style="display:flex; flex-wrap:wrap;">
+    <% Tarot.forEach(function(tarot){ %>
+        <div class="col-md-3 col-sm-6">
+            <div class="img-thumbnail">
+                <img src=<%= tarot.image %> class="img-fluid"> 
+                <p style="text-align: center;"><%= tarot.name %></p>
+                <a class="btn btn-outline-primary" href="/tarot/<%= tarot._id %>" role="button">More detail...</a>
+                <!-- <p style="text-align: center;"><%= tarot.desc %></p> -->
+            </div>
+        </div>
+    <% }); %>
+</div>
+</div>
+
+<%- include("partials/footer") %>

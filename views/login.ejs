@@ -1,0 +1,10 @@
+<%- include("partials/header") %>
+
+<h1>Login page</h1>
+<form action = '/login' method = 'POST'>
+    <input type='text' name='username' placeholder="Username">
+    <input type='password' name='password' placeholder="Password">
+    <button>Log in</button>
+</form>
+<a href="/signup">Sign up</a>
+<%- include("partials/footer") %>
