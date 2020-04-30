@@ -5,7 +5,9 @@ const   express = require("express"),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
         User = require('./models/user'),
-        Tarot = require('./models/tarot');
+        Tarot = require('./models/tarot'),
+        tarotRoutes = require('./routes/tarot'),
+        indexRoutes = require('./routes/index');;
 
 const   app = express();
 
@@ -30,6 +32,13 @@ app.use(function(req,res,next){
 passport.use(new passportLocal(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use('/',indexRoutes);
+app.use('/tarot',tarotRoutes);
+
+app.listen(3000,function(req,res){
+    console.log('EduTarot has started!');
+});
 
 // Tarot.create(
 //     {
@@ -77,90 +86,3 @@ passport.deserializeUser(User.deserializeUser());
 //         image:"https://i.pinimg.com/564x/d3/57/b8/d357b83b44750007929b383bb136d5ef.jpg",
 //         desc:"Buffet หมูกระทะ 1 มื้อ"}        
 // ];
-app.get('/',function(req,res){
-    res.render('landing');
-    console.log('Welcome to the club');
-});
-
-app.get("/tarot",isLoggedIn, function(req,res){
-    Tarot.find({},function(error, allTarot){
-        if(error){
-            console.log("Error!");
-        } else {
-            res.render("tarotlist",{Tarot:allTarot});
-        }
-    })
-});
-
-app.post("/tarot",isLoggedIn, function(req,res){
-    let n_name = req.body.name;
-    let n_image = req.body.image;
-    let n_desc = req.body.desc;
-    let n_card = {name:n_name,image:n_image,desc:n_desc};
-    Tarot.create(n_card, function(error,newCard){
-        if(error){
-            console.log("error"); 
-        } else {
-            console.log("New card added.");
-            res.redirect("/tarot");
-        }
-    });
-});
-
-app.get("/tarot/new",isLoggedIn, function(req,res){
-    res.render("addnewtarot");
-});
-
-app.get("/tarot/:id",isLoggedIn, function(req,res){
-    Tarot.findById(req.params.id, function(error, idCard){
-        if(error){
-            console.log("Error");
-        } else {
-            res.render("showdetails",{tarot:idCard});
-        }
-    });
-});
-
-// -------Authen routes-----------
-
-app.get('/login', function(req,res){
-    res.render('login');
-});
-
-app.post('/login', passport.authenticate('local',{
-    successRedirect: '/tarot',
-    failureRedirect: 'login'
-}),function(req, res){
-});
-
-app.get('/logout', function(req,res){
-    req.logout();
-    res.redirect('/');
-});
-
-app.get('/signup', function(req,res){
-    res.render('signup');
-});
-
-app.post('/signup', function(req,res){
-    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            return res.render('signup');
-        }
-        passport.authenticate('local')(req,res,function(){
-            res.redirect('/tarot');
-        });
-    });
-});
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/login');
-}
-
-app.listen(3000,function(req,res){
-    console.log('EduTarot has started!');
-});
