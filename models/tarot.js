@@ -4,7 +4,13 @@ const   mongoose = require('mongoose'),
 let tarotSchema = new mongoose.Schema({
             name: String,
             image: String,
-            desc: String
+            desc: String,
+            comments: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Comment'
+                }
+            ]
         });
 
 tarotSchema.plugin(passportLocalMongoose);

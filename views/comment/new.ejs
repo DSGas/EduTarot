@@ -1,0 +1,16 @@
+<%- include("../partials/header") %>
+<div class="container" style="width:35%;margin:25px auto;">
+    <h3 style="text-align: center;">Create a new comment</h3>
+    <form action="/tarot/<%= tarot._id %>/comments" method="POST">
+        <div class="form-group">
+            <label for="commentText">Comment</label>
+            <input type="text" class="form-control" name="comment[text]" placeholder="Your comment here">
+        </div>
+        <div class="form-group">
+            <label for="commentUser">Username</label>
+            <input type="text" class="form-control" name="comment[username]" placeholder="Your username">
+        </div>     
+        <button type="submit" class="btn btn-outline-primary" style="float: right;">Submit</button>
+  </form>
+</div>  
+<%- include("../partials/footer") %>

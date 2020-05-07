@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Tarot = require('./models/tarot');
+const Comment = require('./models/comment');
 
 const data = [
     {
@@ -26,9 +27,22 @@ function seedDB(){
         data.forEach(function(seed){
             Tarot.create(seed, function(err, tarot){
                 if(err){
-                    console.log('Add card ERROR');
+                    console.log(err);
                 } else {
                     console.log('Added a tarot');
+                    Comment.create(
+                        {
+                            text: 'I want this card so bad.',
+                            username: 'dsgas'
+                        }, function(err, comment){
+                            if(err) {
+                                console.log(err);
+                            } else {
+                                tarot.comments.push(comment);
+                                tarot.save();
+                                console.log('Comment added');
+                            }
+                        });
                 }
             });
         });

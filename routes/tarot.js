@@ -8,7 +8,7 @@ router.get("/",middleware.isLoggedIn, function(req,res){
         if(error){
             console.log("Error!");
         } else {
-            res.render("tarotlist",{Tarot:allTarot});
+            res.render("tarots/index",{Tarot:allTarot});
         }
     })
 });
@@ -29,15 +29,15 @@ router.post("/",middleware.isLoggedIn, function(req,res){
 });
 
 router.get("/new",middleware.isLoggedIn, function(req,res){
-    res.render("addnewtarot");
+    res.render("tarots/new");
 });
 
 router.get("/:id",middleware.isLoggedIn, function(req,res){
-    Tarot.findById(req.params.id, function(error, idCard){
+    Tarot.findById(req.params.id).populate('comments').exec(function(error, idCard){
         if(error){
             console.log("Error");
         } else {
-            res.render("showdetails",{tarot:idCard});
+            res.render("tarots/show",{tarot:idCard});
         }
     });
 });

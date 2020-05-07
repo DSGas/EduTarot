@@ -9,7 +9,8 @@ const   express = require("express"),
         Tarot = require('./models/tarot'),
         seedDB = require('./seeds'),
         tarotRoutes = require('./routes/tarot'),
-        indexRoutes = require('./routes/index');;
+        indexRoutes = require('./routes/index'),
+        commentsRoutes = require('./routes/comments');
 
 const   app = express();
 
@@ -41,6 +42,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/',indexRoutes);
 app.use('/tarot',tarotRoutes);
+app.use('/tarot/:id/comments',commentsRoutes);
 
 app.listen(3000,function(req,res){
     console.log('EduTarot has started!');
