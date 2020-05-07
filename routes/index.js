@@ -19,6 +19,7 @@ router.post('/login', passport.authenticate('local',{
 
 router.get('/logout', function(req,res){
     req.logout();
+    req.flash('success','You log out successfully');
     res.redirect('/');
 });
 
@@ -33,6 +34,7 @@ router.post('/signup', function(req,res){
             return res.render('signup');
         }
         passport.authenticate('local')(req,res,function(){
+            req.flash('success','Welcome to EduTarot, ' + user.username);
             res.redirect('/tarot');
         });
     });
