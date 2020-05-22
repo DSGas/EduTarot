@@ -5,6 +5,7 @@ const   express = require("express"),
         passport = require('passport'),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
+        methodOverride = require('method-override'),
         User = require('./models/user'),
         Tarot = require('./models/tarot'),
         seedDB = require('./seeds'),
@@ -19,7 +20,8 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(flash());
-seedDB();
+app.use(methodOverride("_method"));
+// seedDB();
 
 app.use(require('express-session')({
     secret: 'CSS227',

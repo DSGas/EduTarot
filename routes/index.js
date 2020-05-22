@@ -13,7 +13,11 @@ router.get('/login', function(req,res){
 
 router.post('/login', passport.authenticate('local',{
     successRedirect: '/tarot',
-    failureRedirect: 'login'
+    failureRedirect: 'login',
+    successFlash: true,
+    failureFlash: true,
+    successFlash: 'Successfully log in!',
+    failureFlash: 'Invalid username or password!'
 }),function(req, res){
 });
 
