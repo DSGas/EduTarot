@@ -13,6 +13,12 @@
     <a class="btn btn-primary" href='/tarot/<%= tarot._id %>/comments/new'>Add new comment</a>
 </p>
 <% tarot.comments.forEach(function(comment){ %>
-    <p><strong><%= comment.username %></strong> - <%= comment.text %></p>
+    <p><strong><%= comment.author.username %></strong> - <%= comment.text %></p>
+    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %> 
+        <a class="btn btn-xs btn-warning" href='/tarot/<%= tarot._id %>/comments/<%= comment._id %>/edit'>Edit</a>
+        <form id="delete-form" action="/tarot/<%= tarot._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">       
+            <button class="btn btn-xs btn-danger">Delete</button>
+        </form>
+    <% } %>   
 <% }) %>
 <%- include("../partials/footer") %>
