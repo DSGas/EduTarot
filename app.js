@@ -15,7 +15,10 @@ const   express = require("express"),
 
 const   app = express();
 
+mongoose.set('useUnifiedTopology',true);
 mongoose.connect('mongodb://localhost:27017/edutarot', {useNewUrlParser: true});
+mongoose.set('useCreateIndex',true);
+mongoose.set('useFindAndModify',false);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");

@@ -10,7 +10,7 @@
     <% Tarot.forEach(function(tarot){ %>
         <div class="col-md-3 col-sm-6">
             <div class="img-thumbnail">
-                <img src=<%= tarot.image %> class="img-fluid"> 
+                <img src=<%= '../uploads/'+ tarot.image %> class="img-fluid"> 
                 <p style="text-align: center;"><%= tarot.name %></p>
                 <a class="btn btn-outline-primary" href="/tarot/<%= tarot._id %>" role="button">More detail...</a>
                 <!-- <p style="text-align: center;"><%= tarot.desc %></p> -->

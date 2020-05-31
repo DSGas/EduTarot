@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 <h1><%= tarot.name %></h1>
-<img src=<%= tarot.image %> class="img-fluid"> 
+<img src=<%= '../uploads/'+ tarot.image %> class="img-fluid"> 
 <p><%= tarot.desc %></p>
 <p>สร้างโดย <%= tarot.author.username %></p>
 <% if(currentUser && tarot.author.id.equals(currentUser._id)){ %> 

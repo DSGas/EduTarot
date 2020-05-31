@@ -1,18 +1,18 @@
 <%- include("../partials/header") %>
 <div class="container" style="width:35%;margin:25px auto;">
     <h3 style="text-align: center;">Edit <%= tarot.name %></h3>
-    <form action="/tarot/<%= tarot._id %>?_method=PUT" method="POST">
+    <form action="/tarot/<%= tarot._id %>?_method=PUT" method="POST" enctype='multipart/form-data'>
         <div class="form-group">
             <label for="edutarotName">Name of card</label>
-            <input type="text" class="form-control" name="tarot[name]" value='<%= tarot.name %>'>
+            <input type="text" class="form-control" name="name" value='<%= tarot.name %>'>
         </div>
         <div class="form-group">
-            <label for="edutarotURL">Image URL</label>
-            <input type="text" class="form-control" name="tarot[image]" value='<%= tarot.image %>'>
+            <label for="edutarotImageUpload">Image URL</label>
+            <input type="file" class="form-control" name="image" accept="image/*">
         </div>
         <div class="form-group">
             <label for="edutarotDesc">Description</label>
-            <input type="text" class="form-control" name="tarot[desc]" value='<%= tarot.desc %>'>
+            <input type="text" class="form-control" name="desc" value='<%= tarot.desc %>'>
         </div>        
         <button type="submit" class="btn btn-outline-primary" style="float: right;">Confirm</button>
   </form>
